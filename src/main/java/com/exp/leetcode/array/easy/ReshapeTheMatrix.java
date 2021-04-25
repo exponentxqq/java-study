@@ -16,18 +16,25 @@ package com.exp.leetcode.array.easy;
  */
 public class ReshapeTheMatrix {
   public int[][] matrixReshape(int[][] mat, int r, int c) {
-    if (r * c > mat.length * mat[0].length) {
+    if (r * c != mat.length * mat[0].length) {
       return mat;
     }
 
     int[][] res = new int[r][c];
+    int x = 0;
+    int y = 0;
 
-    for (int i = 0; i < mat.length; i++) {
+    for (int[] ints : mat) {
       for (int j = 0; j < mat[0].length; j++) {
-        
+        res[x][y] = ints[j];
+        y++;
+        if (y == c) {
+          x++;
+          y = 0;
+        }
       }
     }
 
-    return new int[0][0];
+    return res;
   }
 }

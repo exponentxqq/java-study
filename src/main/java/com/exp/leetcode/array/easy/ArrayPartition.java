@@ -12,6 +12,8 @@ import java.util.Arrays;
  * <p>返回该 最大总和 。
  *
  * <p>来源：力扣（LeetCode） 链接：https://leetcode-cn.com/problems/array-partition-i
+ *
+ * @number 561
  */
 public class ArrayPartition {
   /*越小的数就和越小的分在一起，可以尽量减少大数的损失*/
