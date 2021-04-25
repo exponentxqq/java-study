@@ -13,7 +13,7 @@ public class MissingNumberTest {
 
     int expect = 2;
 
-    Assertions.assertEquals(expect, missingNumber.missingNumber(nums));
+    Assertions.assertEquals(expect, missingNumber.missingNumber3(nums));
   }
 
   @Test
@@ -24,7 +24,7 @@ public class MissingNumberTest {
 
     int expect = 2;
 
-    Assertions.assertEquals(expect, missingNumber.missingNumber(nums));
+    Assertions.assertEquals(expect, missingNumber.missingNumber3(nums));
   }
 
   @Test
@@ -35,7 +35,7 @@ public class MissingNumberTest {
 
     int expect = 8;
 
-    Assertions.assertEquals(expect, missingNumber.missingNumber(nums));
+    Assertions.assertEquals(expect, missingNumber.missingNumber3(nums));
   }
 
   @Test
@@ -46,7 +46,7 @@ public class MissingNumberTest {
 
     int expect = 0;
 
-    Assertions.assertEquals(expect, missingNumber.missingNumber(nums));
+    Assertions.assertEquals(expect, missingNumber.missingNumber3(nums));
   }
 
   @Test
@@ -57,6 +57,6 @@ public class MissingNumberTest {
 
     int expect = 0;
 
-    Assertions.assertEquals(expect, missingNumber.missingNumber(nums));
+    Assertions.assertEquals(expect, missingNumber.missingNumber3(nums));
   }
 }
