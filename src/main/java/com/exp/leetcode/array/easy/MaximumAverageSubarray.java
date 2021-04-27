@@ -15,6 +15,6 @@ public class MaximumAverageSubarray {
       max += nums[0];
     }
 
-
+    return 1.0;
   }
 }
