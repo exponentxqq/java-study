@@ -19,6 +19,7 @@ import java.util.Map;
  *
  * <p>来源：力扣（LeetCode） 链接：https://leetcode-cn.com/problems/count-unhappy-friends
  *
+ * @incomplete
  * @number 1583
  * @date @date 2021/4/26 9:50 AM
  */
@@ -26,7 +27,7 @@ public class CountUnhappyFriends {
   public int unhappyFriends(int n, int[][] preferences, int[][] pairs) {
     int unhappy = 0;
 
-    int[][] orders = new int[n][] {};
+    int[][] orders = new int[n][1];
 
     for (int i = 0; i < n; i++) {
       for (int j = 0; j < n - 1; j++) {
