@@ -12,12 +12,17 @@ package com.exp.leetcode.array.easy;
  */
 public class ToeplitzMatrix {
   public boolean isToeplitzMatrix(int[][] matrix) {
-    int n = Math.min(matrix.length, matrix[0].length);
-    int num = matrix[0][0];
-
-    for (int i = 0; i < n; i++) {
-      if (matrix[i][i] != num) {
-        return false;
+    for (int i = 0; i < matrix.length; i++) {
+      for (int j = 0; j < matrix[i].length; j++) {
+        if (i + 1 >= matrix.length) {
+          continue;
+        }
+        if (j + 1 >= matrix[i].length) {
+          continue;
+        }
+        if (matrix[i][j] != matrix[i + 1][j + 1]) {
+          return false;
+        }
       }
     }
     return true;
