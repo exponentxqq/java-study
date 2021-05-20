@@ -9,11 +9,24 @@ package com.exp.leetcode.array.easy;
  * @date 2021/4/25 7:22 PM
  */
 public class MaximumAverageSubarray {
-  public double findMaxAverage(int[] nums, int k) {
-    int max = 0;
-    for (int i = 0; i < k; i++) {
-      max += nums[0];
+  public double findMaxAverage1(int[] nums, int k) {
+    double[] sums = new double[nums.length - k + 1];
+
+    for (int i = 0; i <= nums.length - k; i++) {
+      for (int j = i; j < i + k; j++) {
+        sums[i] += nums[j];
+      }
     }
+
+    double max = sums[0] / k;
+    for (int i = 1; i < sums.length; i++) {
+      max = Math.max(max, sums[i] / k);
+    }
+
+    return max;
+  }
+
+  public double findMaxAverage(int[] nums, int k) {
 
     return 1.0;
   }

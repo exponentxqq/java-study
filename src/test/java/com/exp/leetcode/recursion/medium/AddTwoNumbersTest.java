@@ -1,6 +1,6 @@
-package com.exp.leetcode.recursion.easy;
+package com.exp.leetcode.recursion.medium;
 
-import com.exp.leetcode.recursion.easy.AddTwoNumbers.ListNode;
+import com.exp.leetcode.recursion.medium.AddTwoNumbers.ListNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

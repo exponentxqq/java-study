@@ -15,4 +15,16 @@ public class MaximumAverageSubarrayTest {
 
     Assertions.assertEquals(expect, maximumAverageSubarray.findMaxAverage(nums, k));
   }
+
+  @Test
+  void test2() {
+    final MaximumAverageSubarray maximumAverageSubarray = new MaximumAverageSubarray();
+
+    int[] nums = {5};
+    int k = 1;
+
+    double expect = 5;
+
+    Assertions.assertEquals(expect, maximumAverageSubarray.findMaxAverage(nums, k));
+  }
 }
