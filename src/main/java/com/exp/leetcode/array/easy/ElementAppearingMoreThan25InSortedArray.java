@@ -13,20 +13,20 @@ package com.exp.leetcode.array.easy;
  */
 public class ElementAppearingMoreThan25InSortedArray {
   public int findSpecialInteger(int[] arr) {
-    if (arr.length < 3) {
-      return arr[0];
-    }
+    int cur = arr[0];
+    int count = 1;
 
-    int gap = (int) Math.ceil((arr.length + 1) / 4D);
-
-    for (int i = 0; i < arr.length; i += gap) {
-      int end = Math.min(i + gap - 1, arr.length - 1);
-      if (i != end && arr[i] == arr[end]) {
-        return arr[i];
-      } else if (i == end && arr[i] == arr[end + 1]) {
-        return arr[i];
+    for (int i = 1; i < arr.length; i++) {
+      if (cur == arr[i]) {
+        count++;
+        if (count * 4 > arr.length) {
+          return cur;
+        }
+      } else {
+        count = 1;
+        cur = arr[i];
       }
     }
-    return -1;
+    return count * 4 > arr.length ? cur : -1;
   }
 }
