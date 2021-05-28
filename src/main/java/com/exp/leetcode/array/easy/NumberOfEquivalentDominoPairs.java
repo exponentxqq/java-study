@@ -1,7 +1,6 @@
 package com.exp.leetcode.array.easy;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**

@@ -52,9 +52,9 @@ public class ToeplitzMatrixTest {
     final ToeplitzMatrix toeplitzMatrix = new ToeplitzMatrix();
 
     int[][] matrix = {
-        {11, 74, 0, 93},
-        {40, 11, 74, 0},
-        {2, 10, 11, 74},
+      {11, 74, 0, 93},
+      {40, 11, 74, 0},
+      {2, 10, 11, 74},
     };
 
     boolean expect = false;

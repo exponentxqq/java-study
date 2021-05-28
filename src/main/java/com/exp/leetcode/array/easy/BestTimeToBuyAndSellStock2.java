@@ -18,11 +18,11 @@ public class BestTimeToBuyAndSellStock2 {
    *
    * <p>每天都有两种可能，一种是继续持有股票，一种是卖出了股票<br>
    * 设f[i][0]为每天卖出的最大收益，设f[i][1]为每天持有股票的最大收益<br>
+   *
    * <ul>
-   * 每天卖出的最大利润为前一天卖出的最大利润和当前卖出的最大利润取最大值，当天卖出的最大利润为前一天持有的最大利润在当前卖出，即为f[i - 1][1] + prices[i]<br>
-   * f[i][0] = max(f[i - 1][0], f[i - 1][1] + prices[i])<br>
-   * <li>每天持有的最大利润</li>
-   * f[i][1] = max(f[i - 1][1], f[i - 1][0] - prices[i])<br>
+   *   每天卖出的最大利润为前一天卖出的最大利润和当前卖出的最大利润取最大值，当天卖出的最大利润为前一天持有的最大利润在当前卖出，即为f[i - 1][1] + prices[i]<br>
+   *   f[i][0] = max(f[i - 1][0], f[i - 1][1] + prices[i])<br>
+   *   <li>每天持有的最大利润 f[i][1] = max(f[i - 1][1], f[i - 1][0] - prices[i])<br>
    * </ul>
    */
   public int maxProfit(int[] prices) {

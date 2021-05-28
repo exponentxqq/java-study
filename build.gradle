@@ -17,11 +17,7 @@ jar.enabled = false
 
 spotless {
     java {
-
-        target project.fileTree(project.rootDir) {
-            include '**/*.java'
-            exclude '**/test/**'
-        }
+        target('**/*.java')
         googleJavaFormat()
     }
 }

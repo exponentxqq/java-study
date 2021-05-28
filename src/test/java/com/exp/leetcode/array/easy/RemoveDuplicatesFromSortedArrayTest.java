@@ -1,6 +1,5 @@
 package com.exp.leetcode.array.easy;
 
-import java.util.Arrays;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

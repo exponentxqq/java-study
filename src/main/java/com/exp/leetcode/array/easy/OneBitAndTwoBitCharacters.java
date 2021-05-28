@@ -21,7 +21,7 @@ public class OneBitAndTwoBitCharacters {
     for (int i = 0; i < bits.length; i++) {
       if (bits[i] == 1) {
         i++;
-        if (i==bits.length - 1) {
+        if (i == bits.length - 1) {
           matched = true;
         }
       }

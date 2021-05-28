@@ -14,7 +14,7 @@ package com.exp.leetcode.array.easy;
  */
 public class PlusOne {
   public int[] plusOne(int[] digits) {
-    for (int i = digits.length - 1; i >=0; i--) {
+    for (int i = digits.length - 1; i >= 0; i--) {
       int tmp = digits[i] + 1;
       if (tmp == 10) {
         digits[i] = 0;

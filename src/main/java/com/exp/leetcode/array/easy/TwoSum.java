@@ -1,7 +1,5 @@
 package com.exp.leetcode.array.easy;
 
-import com.exp.util.Statistics;
-import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -51,4 +49,3 @@ public class TwoSum {
     return new int[0];
   }
 }
-

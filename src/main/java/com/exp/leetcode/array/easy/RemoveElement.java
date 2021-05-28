@@ -1,6 +1,5 @@
 package com.exp.leetcode.array.easy;
 
-import com.exp.util.Statistics;
 import java.util.Arrays;
 
 /**

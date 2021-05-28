@@ -1,8 +1,5 @@
 package com.exp.leetcode.array.medium;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * 给你一份 n 位朋友的亲近程度列表，其中 n 总是 偶数 。
  *

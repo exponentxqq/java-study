@@ -28,14 +28,14 @@ public class TransposeMatrixTest {
     final TransposeMatrix transposeMatrix = new TransposeMatrix();
 
     int[][] matrix = {
-        {1, 2, 3},
-        {4, 5, 6},
+      {1, 2, 3},
+      {4, 5, 6},
     };
 
     int[][] expected = {
-        {1, 4},
-        {2, 5},
-        {3, 6},
+      {1, 4},
+      {2, 5},
+      {3, 6},
     };
 
     Assertions.assertArrayEquals(expected, transposeMatrix.transpose(matrix));
