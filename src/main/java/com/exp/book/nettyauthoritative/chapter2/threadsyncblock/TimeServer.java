@@ -8,7 +8,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-/** 通过线程池，实现伪异步 I/O */
+/**
+ * 通过线程池，实现伪异步 I/O
+ *
+ * @tag thread,thread-pool,task,io
+ */
 public class TimeServer {
   public static void main(String[] args) throws IOException {
     int port = 8020;
