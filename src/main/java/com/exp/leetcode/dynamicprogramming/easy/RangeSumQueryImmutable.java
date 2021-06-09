@@ -12,7 +12,7 @@ package com.exp.leetcode.dynamicprogramming.easy;
  * <p>来源：力扣（LeetCode） 链接：https://leetcode-cn.com/problems/range-sum-query-immutable
  *
  * @number 303
- * @date @date 2021/6/4 14:44 AM
+ * @date @date 2021/6/4 14:44
  */
 public class RangeSumQueryImmutable {
   private int[] nums;
