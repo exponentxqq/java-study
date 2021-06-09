@@ -9,7 +9,7 @@ package com.exp.leetcode.dynamicprogramming.easy;
  *
  * <p>来源：力扣（LeetCode） 链接：https://leetcode-cn.com/problems/three-steps-problem-lcci
  *
- * @number
+ * @number interview 08.01
  * @date @date 2021/6/9 10:23
  */
 public class ThreeStepsProblemLcci {
