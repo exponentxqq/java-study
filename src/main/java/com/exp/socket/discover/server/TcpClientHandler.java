@@ -10,19 +10,23 @@ import java.net.Socket;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import lombok.Getter;
 
 /** @date 2021/6/13 14:45 */
 public class TcpClientHandler {
   private final Socket client;
   private final Reader reader;
   private final Writer writer;
-  private final CloseNotify closeNotify;
+  private final ClientHandlerCallback clientHandlerCallback;
+  @Getter private final String clientInfo;
 
-  public TcpClientHandler(Socket socket, CloseNotify closeNotify) throws IOException {
+  public TcpClientHandler(Socket socket, ClientHandlerCallback clientHandlerCallback)
+      throws IOException {
     this.client = socket;
     this.reader = new Reader(socket.getInputStream());
     this.writer = new Writer(socket.getOutputStream());
-    this.closeNotify = closeNotify;
+    this.clientHandlerCallback = clientHandlerCallback;
+    this.clientInfo = client.getInetAddress() + ":" + client.getPort();
   }
 
   public void read() {
@@ -46,7 +50,7 @@ public class TcpClientHandler {
 
   private void closeBySelf() {
     close();
-    closeNotify.onSelfClosed(this);
+    clientHandlerCallback.onSelfClosed(this);
   }
 
   class Reader extends Thread {
@@ -69,7 +73,7 @@ public class TcpClientHandler {
             TcpClientHandler.this.closeBySelf();
             break;
           }
-          System.out.println("received: " + received);
+          clientHandlerCallback.onNewMessageArrived(TcpClientHandler.this, received);
         } while (!done);
       } catch (IOException e) {
         if (!done) {
@@ -98,6 +102,9 @@ public class TcpClientHandler {
     }
 
     private void send(String line) {
+      if (done) {
+        return;
+      }
       executorService.execute(
           () -> {
             if (!done) {
