@@ -1,11 +1,13 @@
 package com.exp.socket.tcp;
 
+import static java.lang.System.*;
+import static java.net.InetAddress.getLocalHost;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.net.Inet4Address;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -20,8 +22,8 @@ public class Server {
     ServerSocket serverSocket = createSocket();
     initSocket(serverSocket);
 
-    System.out.println("server ready");
-    System.out.println(
+    out.println("server ready");
+    out.println(
         "server ====> " + serverSocket.getInetAddress() + ":" + serverSocket.getLocalPort());
 
     while (true) {
@@ -31,9 +33,9 @@ public class Server {
   }
 
   private static ServerSocket createSocket() throws IOException {
-    ServerSocket serverSocket = new ServerSocket();
+    final ServerSocket serverSocket = new ServerSocket();
     // 50未允许等待链接的队列为50个
-    serverSocket.bind(new InetSocketAddress(Inet4Address.getLocalHost(), PORT), 50);
+    serverSocket.bind(new InetSocketAddress(getLocalHost(), PORT), 50);
     return serverSocket;
   }
 
@@ -57,7 +59,7 @@ class ClientHandler extends Thread {
   @Override
   public void run() {
     super.run();
-    System.out.println("client connected: " + socket.getInetAddress() + ":" + socket.getPort());
+    out.println("client connected: " + socket.getInetAddress() + ":" + socket.getPort());
     try (OutputStream socketOutputStream = socket.getOutputStream();
         PrintStream socketPrint = new PrintStream(socketOutputStream);
         BufferedReader socketReader =
@@ -68,14 +70,14 @@ class ClientHandler extends Thread {
           socketPrint.println("bye");
           stop = true;
         } else {
-          System.out.println("client send: " + str);
+          out.println("client send: " + str);
           socketPrint.println("reply: " + str.length());
         }
       } while (!stop);
     } catch (Exception e) {
-      System.out.println("client handle error: " + e.getMessage());
-      System.out.println(Arrays.toString(e.getStackTrace()));
+      out.println("client handle error: " + e.getMessage());
+      out.println(Arrays.toString(e.getStackTrace()));
     }
-    System.out.println("client closed: " + socket.getInetAddress() + ":" + socket.getPort());
+    out.println("client closed: " + socket.getInetAddress() + ":" + socket.getPort());
   }
 }
