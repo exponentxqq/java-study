@@ -43,7 +43,7 @@ public class Server {
     serverSocket.setReuseAddress(true);
     serverSocket.setReceiveBufferSize(64 * 1024 * 1024);
     // 设置accept超时时间
-    serverSocket.setSoTimeout(3000);
+    // serverSocket.setSoTimeout(3000);
     serverSocket.setPerformancePreferences(1, 1, 1);
   }
 }
@@ -63,7 +63,7 @@ class ClientHandler extends Thread {
     try (OutputStream socketOutputStream = socket.getOutputStream();
         PrintStream socketPrint = new PrintStream(socketOutputStream);
         BufferedReader socketReader =
-            new BufferedReader(new InputStreamReader(socket.getInputStream())); ) {
+            new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
       do {
         String str = socketReader.readLine();
         if ("bye".equalsIgnoreCase(str)) {

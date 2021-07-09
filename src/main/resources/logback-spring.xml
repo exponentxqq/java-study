@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <springProperty scope="context" name="LOGS" source="log.folder"/>
+    <springProperty scope="context" name="LOG_LEVEL" source="log.level.app"/>
+    <springProperty scope="context" name="LOG_LEVEL_ROOT" source="log.level.root"/>
+    <springProperty scope="context" name="LOG_LEVEL_CONSOLE" source="log.level.console"/>
+
+    <appender name="Console"
+      class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %white(%d{ISO8601,Asia/Shanghai}) %highlight(%-5level) %yellow(%C{1.}) [%blue(%t)] %yellow(%X{TRACE-ID}) %m%n
+            </Pattern>
+        </layout>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${LOG_LEVEL_CONSOLE:-debug}</level>
+        </filter>
+    </appender>
+
+    <appender name="RollingFile"
+      class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS}/spring-boot-logger.log</file>
+        <encoder
+          class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{ISO8601,Asia/Shanghai} %p %C{1.} [%t] %X{TRACE-ID} %m%n</Pattern>
+        </encoder>
+
+        <rollingPolicy
+          class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily and when the file reaches 10 MegaBytes -->
+            <!-- add gz to the end of the file name, it will auto gzip. zip is also supported -->
+            <fileNamePattern>${LOGS}/archived/spring-boot-logger-%d{yyyy-MM-dd}.%i.log.gz
+            </fileNamePattern>
+            <MaxHistory>30</MaxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy
+              class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <!-- LOG everything at INFO level -->
+    <root level="${LOG_LEVEL_ROOT}">
+        <appender-ref ref="RollingFile" />
+        <appender-ref ref="Console" />
+    </root>
+
+    <logger name="com.glority" level="${LOG_LEVEL}" additivity="false">
+        <appender-ref ref="RollingFile" />
+        <appender-ref ref="Console" />
+    </logger>
+</configuration>

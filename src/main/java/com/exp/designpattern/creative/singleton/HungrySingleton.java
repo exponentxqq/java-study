@@ -1,7 +1,7 @@
 package com.exp.designpattern.creative.singleton;
 
 public class HungrySingleton {
-  private static HungrySingleton instance = new HungrySingleton();
+  private static final HungrySingleton instance = new HungrySingleton();
 
   private int count;
 
@@ -11,7 +11,7 @@ public class HungrySingleton {
     return instance;
   }
 
-  public void incr() {
+  public synchronized void incr() {
     count++;
   }
 }
