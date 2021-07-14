@@ -47,7 +47,7 @@ class TimeServerHandlerExecutePool {
             maxPoolSize,
             120L,
             TimeUnit.SECONDS,
-            new ArrayBlockingQueue<Runnable>(queueSize));
+            new ArrayBlockingQueue<>(queueSize));
   }
 
   public void execute(Runnable task) {

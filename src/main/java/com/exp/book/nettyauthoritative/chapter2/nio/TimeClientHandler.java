@@ -9,7 +9,9 @@ import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.Set;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class TimeClientHandler implements Runnable {
   private SocketChannel socketChannel;
   private Selector selector;
@@ -21,7 +23,7 @@ public class TimeClientHandler implements Runnable {
       socketChannel = SocketChannel.open();
       socketChannel.configureBlocking(false);
     } catch (Exception e) {
-      System.out.println("channel open failed: " + e.getMessage());
+      log.error("channel open failed: " + e.getMessage());
       System.exit(1);
     }
   }
@@ -31,7 +33,7 @@ public class TimeClientHandler implements Runnable {
     try {
       doConnect();
     } catch (Exception e) {
-      System.out.println("connect failed: " + e.getMessage());
+      log.error("connect failed: " + e.getMessage());
       System.exit(1);
     }
 
@@ -53,7 +55,7 @@ public class TimeClientHandler implements Runnable {
           }
         }
       } catch (Exception e) {
-        System.out.println(e.getMessage());
+        log.error(e.getMessage());
         System.exit(1);
       }
     }
@@ -106,7 +108,7 @@ public class TimeClientHandler implements Runnable {
           final byte[] bytes = new byte[readBuffer.remaining()];
           readBuffer.get(bytes);
           final String body = new String(bytes, StandardCharsets.UTF_8);
-          System.out.println("now is: " + body);
+          log.info("now is: " + body);
           stop = true;
         } else if (readBytes < 0) {
           key.cancel();

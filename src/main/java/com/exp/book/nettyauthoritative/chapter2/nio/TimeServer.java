@@ -10,8 +10,10 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
+import java.util.Iterator;
 import java.util.Set;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
 public class TimeServer {
   public static void main(String[] args) {
@@ -25,8 +27,9 @@ public class TimeServer {
   }
 }
 
+@Slf4j
 class MultiplexerTimeServer implements Runnable {
-  private static final int backlog = 1024;
+  private static final int BACKLOG = 1024;
 
   private Selector selector;
   private ServerSocketChannel serverSocketChannel;
@@ -38,9 +41,9 @@ class MultiplexerTimeServer implements Runnable {
       selector = Selector.open();
       serverSocketChannel = ServerSocketChannel.open();
       serverSocketChannel.configureBlocking(false);
-      serverSocketChannel.socket().bind(new InetSocketAddress(port), backlog);
+      serverSocketChannel.socket().bind(new InetSocketAddress(port), BACKLOG);
       serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
-      System.out.println("time server is start in port: " + port);
+      log.info("time server is start in port: " + port);
     } catch (IOException e) {
       System.exit(1);
     }
@@ -57,24 +60,28 @@ class MultiplexerTimeServer implements Runnable {
       try {
         selector.select(1000);
         final Set<SelectionKey> selectionKeys = selector.selectedKeys();
+        final Iterator<SelectionKey> iterator = selectionKeys.iterator();
 
-        while (selectionKeys.iterator().hasNext()) {
-          final SelectionKey key = selectionKeys.iterator().next();
-          selectionKeys.iterator().remove();
+        while (iterator.hasNext()) {
+          final SelectionKey key = iterator.next();
+          iterator.remove();
 
           try {
             handle(key);
-          } finally {
+          } catch (Exception e) {
             key.cancel();
             key.channel().close();
           }
         }
       } catch (Exception e) {
-        try {
-          selector.close();
-        } catch (IOException ioe) {
-          throw ioe;
-        }
+        log.info(e.getMessage());
+      }
+    }
+    if (selector != null) {
+      try {
+        selector.close();
+      } catch (Exception e) {
+        log.error(e.getMessage(), e);
       }
     }
   }
@@ -82,21 +89,21 @@ class MultiplexerTimeServer implements Runnable {
   private void handle(SelectionKey key) throws IOException {
     if (key.isValid()) {
       if (key.isAcceptable()) {
-        final ServerSocketChannel serverSocketChannel = (ServerSocketChannel) key.channel();
         final SocketChannel socketChannel = serverSocketChannel.accept();
+        log.info("client[" + socketChannel.getLocalAddress() + "] connected.");
         socketChannel.configureBlocking(false);
         socketChannel.register(selector, SelectionKey.OP_READ);
       }
       if (key.isReadable()) {
         final SocketChannel socketChannel = (SocketChannel) key.channel();
-        final ByteBuffer readBuffer = ByteBuffer.allocate(backlog);
+        final ByteBuffer readBuffer = ByteBuffer.allocate(BACKLOG);
         int readBytes = socketChannel.read(readBuffer);
         if (readBytes > 0) {
           readBuffer.flip();
           final byte[] bytes = new byte[readBuffer.remaining()];
           readBuffer.get(bytes);
           final String body = new String(bytes, StandardCharsets.UTF_8);
-          System.out.println("time server receive order: " + body);
+          log.info("time server receive order: " + body);
           doWrite(
               socketChannel,
               "query time order".equals(body) ? Instant.now().toString() : "bad order");
@@ -109,7 +116,8 @@ class MultiplexerTimeServer implements Runnable {
   }
 
   private void doWrite(SocketChannel socketChannel, String response) throws IOException {
-    if (Strings.isNullOrEmpty(response)) {
+    if (!Strings.isNullOrEmpty(response)) {
+      log.info("response: " + response);
       final byte[] bytes = response.getBytes();
       final ByteBuffer writeBuffer = ByteBuffer.allocate(bytes.length);
       writeBuffer.put(bytes);
