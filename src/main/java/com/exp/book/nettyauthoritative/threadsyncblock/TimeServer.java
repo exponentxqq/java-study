@@ -1,6 +1,6 @@
-package com.exp.book.nettyauthoritative.chapter2.threadsyncblock;
+package com.exp.book.nettyauthoritative.threadsyncblock;
 
-import com.exp.book.nettyauthoritative.chapter2.syncblock.TimeServerHandler;
+import com.exp.book.nettyauthoritative.syncblock.TimeServerHandler;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.concurrent.ArrayBlockingQueue;

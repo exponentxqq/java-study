@@ -1,4 +1,4 @@
-package com.exp.book.nettyauthoritative.chapter2.syncblock;
+package com.exp.book.nettyauthoritative.syncblock;
 
 import java.io.BufferedReader;
 import java.io.IOException;

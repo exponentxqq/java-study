@@ -1,4 +1,4 @@
-package com.exp.book.nettyauthoritative.chapter2.aio;
+package com.exp.book.nettyauthoritative.aio;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

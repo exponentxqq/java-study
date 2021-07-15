@@ -1,4 +1,4 @@
-package com.exp.book.nettyauthoritative.chapter2.nio;
+package com.exp.book.nettyauthoritative.nio;
 
 import java.io.IOException;
 
