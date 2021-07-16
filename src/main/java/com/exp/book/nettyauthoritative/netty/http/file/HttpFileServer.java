@@ -1,4 +1,4 @@
-package com.exp.book.nettyauthoritative.netty.http;
+package com.exp.book.nettyauthoritative.netty.http.file;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
