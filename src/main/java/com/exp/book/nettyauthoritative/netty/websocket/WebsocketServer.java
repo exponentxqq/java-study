@@ -1,17 +1,14 @@
 package com.exp.book.nettyauthoritative.netty.websocket;
 
-import io.netty.bootstrap.ServerBootstrap;
+import com.exp.book.nettyauthoritative.netty.NettyServer;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelInitializer;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
-import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.DefaultFullHttpResponse;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.HttpHeaderNames;
@@ -34,37 +31,18 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class WebsocketServer {
   public static void main(String[] args) {
-    run();
-  }
-
-  private static void run() {
-    EventLoopGroup bossGroup = new NioEventLoopGroup();
-    EventLoopGroup workerGroup = new NioEventLoopGroup();
-
-    try {
-      ServerBootstrap bootstrap = new ServerBootstrap();
-      bootstrap
-          .group(bossGroup, workerGroup)
-          .channel(NioServerSocketChannel.class)
-          .childHandler(
-              new ChannelInitializer<SocketChannel>() {
-                @Override
-                protected void initChannel(SocketChannel ch) throws Exception {
-                  ch.pipeline()
-                      .addLast(new HttpServerCodec())
-                      .addLast(new HttpObjectAggregator(65536))
-                      .addLast(new ChunkedWriteHandler())
-                      .addLast(new WebSocketServerHandler());
-                }
-              });
-      final ChannelFuture future = bootstrap.bind(8020).sync();
-      future.channel().closeFuture().sync();
-    } catch (Exception e) {
-      log.error(e.getMessage(), e);
-    } finally {
-      bossGroup.shutdownGracefully();
-      workerGroup.shutdownGracefully();
-    }
+    new NettyServer()
+        .run(
+            new ChannelInitializer<>() {
+              @Override
+              protected void initChannel(Channel ch) throws Exception {
+                ch.pipeline()
+                    .addLast(new HttpServerCodec())
+                    .addLast(new HttpObjectAggregator(65536))
+                    .addLast(new ChunkedWriteHandler())
+                    .addLast(new WebSocketServerHandler());
+              }
+            });
   }
 }
 
