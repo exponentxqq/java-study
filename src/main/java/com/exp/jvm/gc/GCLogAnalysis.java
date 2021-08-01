@@ -16,6 +16,7 @@ public class GCLogAnalysis {
     System.out.println("processing......");
 
     int cacheSize = 2000;
+    int count = 0;
     final Object[] cachedGarbage = new Object[cacheSize];
     while (System.currentTimeMillis() < end) {
       final Object garbage = generateGarbage(100 * 1024);
@@ -23,9 +24,11 @@ public class GCLogAnalysis {
       final int randomIndex = random.nextInt(2 * cacheSize);
       if (randomIndex < cacheSize) {
         cachedGarbage[randomIndex] = garbage;
+        count++;
       }
     }
     System.out.println("done! object generate times: " + counter.longValue());
+    System.out.println("alive object count:" + count);
   }
 
   private static Object generateGarbage(int max) {

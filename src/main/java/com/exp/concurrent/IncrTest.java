@@ -8,6 +8,7 @@ public class IncrTest {
   public static void main(String[] args) throws InterruptedException {
     multiThread();
     cas();
+    syncThread();
   }
 
   public static void cas() throws InterruptedException {
@@ -26,6 +27,18 @@ public class IncrTest {
     NormalInt a = new NormalInt(0);
     final Thread thread1 = new Thread(new IncrInt(a));
     final Thread thread2 = new Thread(new IncrInt(a));
+    thread1.start();
+    thread2.start();
+
+    thread1.join();
+    thread2.join();
+    System.out.println("multi thread test result: " + a.get());
+  }
+
+  private static void syncThread() throws InterruptedException {
+    NormalInt a = new NormalInt(0);
+    final Thread thread1 = new Thread(new SyncIncrInt(a));
+    final Thread thread2 = new Thread(new SyncIncrInt(a));
     thread1.start();
     thread2.start();
 
@@ -55,6 +68,20 @@ class IncrInt implements Runnable {
   public void run() {
     for (int i = 0; i < 10000; i++) {
       num.incr();
+    }
+  }
+}
+
+@AllArgsConstructor
+class SyncIncrInt implements Runnable {
+  private final NormalInt num;
+
+  @Override
+  public void run() {
+    for (int i = 0; i < 10000; i++) {
+      synchronized (num) {
+        num.incr();
+      }
     }
   }
 }
