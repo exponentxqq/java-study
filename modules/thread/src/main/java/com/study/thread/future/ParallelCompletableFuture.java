@@ -1,9 +1,9 @@
-package com.study.thread.sync.future;
+package com.study.thread.future;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-public class ParallelCompletableFutureTest {
+public class ParallelCompletableFuture {
   public static void main(String[] args) throws ExecutionException, InterruptedException {
     parallel();
   }

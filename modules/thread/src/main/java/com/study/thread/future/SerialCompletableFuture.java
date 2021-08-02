@@ -1,9 +1,9 @@
-package com.study.thread.sync.future;
+package com.study.thread.future;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-public class SerialCompletableFutureTest {
+public class SerialCompletableFuture {
   public static void main(String[] args) throws ExecutionException, InterruptedException {
     exception();
     serial();
@@ -24,9 +24,9 @@ public class SerialCompletableFutureTest {
 
   private static void serial() throws InterruptedException {
     final CompletableFuture<String> queryCodeFuture =
-        CompletableFuture.supplyAsync(() -> SerialCompletableFutureTest.queryCode("阿里巴巴"));
+        CompletableFuture.supplyAsync(() -> SerialCompletableFuture.queryCode("阿里巴巴"));
     final CompletableFuture<Double> fetchPriceFuture =
-        queryCodeFuture.thenApplyAsync(SerialCompletableFutureTest::fetchPrice);
+        queryCodeFuture.thenApplyAsync(SerialCompletableFuture::fetchPrice);
     fetchPriceFuture.thenAccept(price -> System.out.println("price: " + price));
     Thread.sleep(1000);
   }
