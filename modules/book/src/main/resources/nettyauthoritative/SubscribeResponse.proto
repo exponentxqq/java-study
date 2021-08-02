@@ -1,0 +1,10 @@
+
+option java_package = "com.study.book.nettyauthoritative.netty.proto";
+option java_outer_classname = "SubscribeResponseProto";
+
+message SubscribeResponse {
+  required int32 subId = 1;
+  required int32 code = 2;
+  required string description = 3;
+}
+

@@ -1,13 +1,11 @@
 plugins {
     id "com.diffplug.gradle.spotless" version "3.27.1"
-    id "com.google.protobuf" version "0.8.17"
 }
 
 apply plugin: 'java-library'
 apply plugin: 'idea'
 apply plugin: 'com.diffplug.gradle.spotless'
 apply plugin: 'jacoco'
-apply plugin: "com.google.protobuf"
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -22,48 +20,77 @@ spotless {
     }
 }
 
-repositories {
-    mavenLocal()
-    mavenCentral()
-}
+allprojects {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
 
-dependencies {
-    compileOnly 'org.projectlombok:lombok:1.18.12'
-    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+    apply plugin: 'java-library'
+    apply plugin: 'idea'
+    apply plugin: 'com.diffplug.gradle.spotless'
+    apply plugin: 'jacoco'
 
-    implementation 'ch.qos.logback:logback-classic:1.2.3'
-    implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
-    implementation 'com.google.guava:guava:27.0.1-jre'
-    implementation 'org.openjdk.jol:jol-core:0.16'
-    implementation 'io.netty:netty-all:4.1.65.Final'
-    implementation 'com.google.protobuf:protobuf-java:3.15.3'
-}
-
-test {
-    useJUnitPlatform()
-}
-
-sourceSets {
-    main {
-        proto {
-            srcDir 'src/main/resources'
-            include '**/*.proto'
-        }
-        java {
-            srcDir 'build/generated/source/proto/main/java'
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
         }
     }
 }
 
-protobuf {
-    protoc {
-        artifact = 'com.google.protobuf:protoc:3.10.1'
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+}
+
+subprojects {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok:1.18.12'
+        annotationProcessor 'org.projectlombok:lombok:1.18.12'
+        implementation 'ch.qos.logback:logback-classic:1.2.3'
+        implementation 'com.google.guava:guava:27.0.1-jre'
+        testImplementation 'org.junit.jupiter:junit-jupiter:5.7.0'
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}
+
+def reportSubprojects() {
+    return subprojects.findAll {
+        (new File("${it.projectDir}/src/test/java").isDirectory())
+    }
+}
+
+task jacocoMergeAll(type: JacocoMerge) {
+    dependsOn(subprojects.test, subprojects.jacocoTestReport)
+    reportSubprojects().each { subproject ->
+        executionData subproject.tasks.withType(Test)
     }
 }
 
 task jacocoRootReport(type: JacocoReport, group: 'Coverage reports') {
-    dependsOn(project.test, project.jacocoTestReport)
-    executionData project.tasks.withType(Test)
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: '**/generated/**')
+        }))
+    }
+    description = 'Generates an aggregate report from all subprojects'
+    dependsOn(jacocoMergeAll)
+    sourceDirectories.from = files(reportSubprojects().sourceSets.main.allSource.srcDirs)
+    classDirectories.from = files(reportSubprojects().sourceSets.main.output)
+    executionData.from = files("${buildDir}/jacoco/jacocoMergeAll.exec")
 
     reports {
         html.enabled = true

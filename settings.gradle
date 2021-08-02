@@ -1,1 +1,11 @@
 rootProject.name = 'study'
+
+include 'modules:book'
+include 'modules:leetcode'
+include 'modules:designpattern'
+include 'modules:base'
+include 'modules:swing'
+include 'modules:jvm'
+include 'modules:netty'
+include 'modules:socket'
+include 'modules:thread'
