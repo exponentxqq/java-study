@@ -1,4 +1,4 @@
-package com.exp.leetcode.string.medium;
+package com.study.leetcode.string.medium;
 
 import java.util.HashMap;
 import java.util.Map;

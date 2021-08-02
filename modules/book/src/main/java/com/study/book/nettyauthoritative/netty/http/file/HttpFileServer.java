@@ -1,6 +1,6 @@
-package com.exp.book.nettyauthoritative.netty.http.file;
+package com.study.book.nettyauthoritative.netty.http.file;
 
-import com.exp.book.nettyauthoritative.netty.NettyServer;
+import com.study.book.nettyauthoritative.netty.NettyServer;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;

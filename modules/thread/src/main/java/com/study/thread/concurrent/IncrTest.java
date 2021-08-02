@@ -1,4 +1,4 @@
-package com.exp.concurrent;
+package com.study.thread.concurrent;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import lombok.AllArgsConstructor;

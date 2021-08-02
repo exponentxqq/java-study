@@ -1,4 +1,4 @@
-package com.exp.book.nettyauthoritative.syncblock;
+package com.study.book.nettyauthoritative.syncblock;
 
 import java.io.IOException;
 import java.net.ServerSocket;

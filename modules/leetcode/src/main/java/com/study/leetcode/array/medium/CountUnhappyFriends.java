@@ -1,4 +1,4 @@
-package com.exp.leetcode.array.medium;
+package com.study.leetcode.array.medium;
 
 /**
  * 给你一份 n 位朋友的亲近程度列表，其中 n 总是 偶数 。

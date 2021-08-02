@@ -1,4 +1,4 @@
-package com.exp.book.nettyauthoritative.netty.decoder;
+package com.study.book.nettyauthoritative.netty.decoder;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
