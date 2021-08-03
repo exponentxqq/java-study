@@ -4,11 +4,12 @@ import lombok.Getter;
 
 /** 非线程安全 单例 */
 public class NTSSingleton {
-  public static NTSSingleton instance = null;
+  private static NTSSingleton instance = null;
 
-  @Getter private int count = 1;
+  @Getter private int count = 0;
 
-  public static NTSSingleton getInstance() {
+  /** 这种方式的单例模式也是线程不安全的，多线程下需要加上 synchronized 关键字 */
+  public static synchronized NTSSingleton getInstance() {
     if (instance == null) {
       instance = new NTSSingleton();
     }
