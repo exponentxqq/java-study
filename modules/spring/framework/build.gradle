@@ -2,7 +2,7 @@ dependencies {
     // spring 核心库，其他spring模块大都依赖该库
     implementation 'org.springframework:spring-core:4.3.29.RELEASE'
 
-    // aspects-aop依赖
+    // spring-aspects-aop依赖
     implementation 'org.springframework:spring-aop:4.3.29.RELEASE'
     implementation 'org.springframework:spring-aspects:4.3.29.RELEASE'
 
