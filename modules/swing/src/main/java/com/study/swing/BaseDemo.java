@@ -6,7 +6,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class BaseDemo {
   public static void main(String[] args) {
     // 创建 JFrame 实例
@@ -71,7 +73,7 @@ public class BaseDemo {
     JButton loginButton = new JButton("login");
     loginButton.setBounds(10, 80, 80, 25);
     // 单击事件
-    loginButton.addActionListener(e -> System.out.println(e.toString()));
+    loginButton.addActionListener(e -> log.info(e.toString()));
     panel.add(loginButton);
   }
 }
