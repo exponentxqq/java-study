@@ -13,7 +13,9 @@ import org.aspectj.lang.annotation.Pointcut;
 public class AnnotationAop {
   @Pointcut(
       value = "execution(* com.study.spring.framework.aop.annotation.AnnotationAopBean.*(..))")
-  public void point() {}
+  public void point() {
+    // aop point cut
+  }
 
   @Before(value = "point()")
   public void before() {
@@ -26,9 +28,10 @@ public class AnnotationAop {
   }
 
   @Around("point()")
-  public void around(ProceedingJoinPoint joinPoint) throws Throwable {
+  public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
     log.info("========> around begin //1");
     joinPoint.proceed();
     log.info("========> around after //3");
+    return null;
   }
 }
