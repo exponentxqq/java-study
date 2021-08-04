@@ -7,19 +7,19 @@ import org.aspectj.lang.ProceedingJoinPoint;
 public class XmlAop {
   // 前置
   public void startTransaction() {
-    log.info("    ====>begin ding... "); // 2
+    log.info("    ====> begin... "); // 2
   }
 
   // 后置
   public void commitTransaction() {
-    log.info("    ====>finish ding... "); // 4
+    log.info("    ====> finish... "); // 4
   }
 
   // 环绕
   public void around(ProceedingJoinPoint joinPoint) throws Throwable {
-    log.info("    ====>around begin ding"); // 1
+    log.info("    ====> around begin..."); // 1
     // 调用process()方法才会真正的执行实际被代理的方法
     joinPoint.proceed();
-    log.info("    ====>around finish ding"); // 3
+    log.info("    ====> around finish"); // 3
   }
 }
