@@ -1,5 +1,6 @@
 plugins {
     id "com.diffplug.gradle.spotless" version "3.27.1"
+    id "io.spring.dependency-management" version "1.0.8.RELEASE"
 }
 
 apply plugin: 'java-library'
@@ -48,18 +49,42 @@ configurations {
     }
 }
 
-subprojects {
+subprojects() {
     repositories {
         mavenLocal()
         mavenCentral()
+    }
+
+    apply plugin: 'io.spring.dependency-management'
+
+    dependencyManagement {
+        dependencies {
+            // 分析java对象内存布局
+            dependency 'org.openjdk.jol:jol-core:0.16'
+
+            // 工具集合
+            dependency 'com.google.guava:guava:27.0.1-jre'
+
+            // netty
+            dependency 'io.netty:netty-all:4.1.65.Final'
+            dependency 'com.google.protobuf:protobuf-java:3.15.3'
+
+            // 网络请求工具
+            dependency 'org.apache.httpcomponents:httpclient:4.5.5'
+            dependency 'org.apache.httpcomponents:httpasyncclient:4.1.4'
+            dependency 'com.squareup.okhttp3:okhttp:4.7.2'
+
+            // for unit test
+            dependency 'org.junit.jupiter:junit-jupiter:5.7.0'
+        }
     }
 
     dependencies {
         compileOnly 'org.projectlombok:lombok:1.18.12'
         annotationProcessor 'org.projectlombok:lombok:1.18.12'
         implementation 'ch.qos.logback:logback-classic:1.2.3'
-        implementation 'com.google.guava:guava:27.0.1-jre'
-        testImplementation 'org.junit.jupiter:junit-jupiter:5.7.0'
+        implementation 'com.google.guava:guava'
+        testImplementation 'org.junit.jupiter:junit-jupiter'
     }
 
     test {
