@@ -30,7 +30,7 @@ public class ClassStruct {
     // 12   4        (object alignment gap)
     // Instance size: 16 bytes
     // Space losses: 0 bytes internal + 4 bytes external = 4 bytes total
-    log.info("hash: "+ Integer.toHexString(emptyClass.hashCode()));
+    log.info("hash: " + Integer.toHexString(emptyClass.hashCode()));
     log.info(ClassLayout.parseInstance(emptyClass).toPrintable());
   }
 
