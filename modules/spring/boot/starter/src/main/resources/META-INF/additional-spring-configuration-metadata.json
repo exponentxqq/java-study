@@ -1,0 +1,10 @@
+{
+  "properties": [
+    {
+      "name": "starter.student-name",
+      "type": "java.lang.String",
+      "defaultValue": "autoconfig",
+      "description": "学生姓名."
+    }
+  ]
+}

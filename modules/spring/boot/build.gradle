@@ -1,6 +1,7 @@
 dependencies {
     // 引入本地jar包（这里是引入了一个自定义starter）
-    compile fileTree(dir: 'starter/build/libs', includes: ['*.jar'])
+//    compile fileTree(dir: 'starter/build/libs', includes: ['*.jar'])
+    compile project(':modules:spring:boot:starter')
 
     implementation 'javax.annotation:javax.annotation-api'
     implementation 'org.springframework.boot:spring-boot-autoconfigure'
