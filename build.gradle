@@ -111,6 +111,12 @@ subprojects() {
     }
 }
 
+project(':modules:spring:boot') {
+    dependencies {
+        compile project(':modules:spring:boot:starter')
+    }
+}
+
 def reportSubprojects() {
     return subprojects.findAll {
         (new File("${it.projectDir}/src/test/java").isDirectory())
