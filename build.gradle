@@ -93,6 +93,10 @@ subprojects() {
             // 自定义starter引用后，依赖starter的项目可以提示starter的相关properties配置
             dependency 'org.springframework.boot:spring-boot-configuration-processor:2.3.12.RELEASE'
 
+            // database数据库相关
+            dependency 'mysql:mysql-connector-java:8.0.26'
+            dependency 'org.mybatis:mybatis:3.5.7'
+
             // 单元测试
             dependency 'org.junit.jupiter:junit-jupiter:5.7.0'
         }
