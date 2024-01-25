@@ -2,7 +2,6 @@ package com.study.algorithm.sort.merge;
 
 import com.study.algorithm.sort.Sorter.Order;
 import com.study.algorithm.sort.SorterTest;
-import com.study.algorithm.sort.insert.InsertSort;
 import java.util.Arrays;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

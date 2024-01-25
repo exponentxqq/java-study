@@ -17,6 +17,11 @@ import java.util.List;
  * <li>如果整数数超过 32 位有符号整数范围 [−231, 231 − 1] ，需要截断这个整数，使其保持在这个范围内。
  *
  *     <p>具体来说，小于 −231 的整数应该被固定为 −231 ，大于 231 − 1 的整数应该被固定为 231 − 1 。 返回整数作为最终结果。
+ *
+ *     <p>来源：力扣（LeetCode） 链接：https://leetcode.cn/problems/string-to-integer-atoi/description/
+ *
+ * @number 8
+ * @date 2024/1/25 17:08
  */
 public class StringToIntegerConversion {
   public int atoi(String s) {
