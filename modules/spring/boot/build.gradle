@@ -4,7 +4,7 @@ dependencies {
     // 1. 引入本地jar包（这里是引入了一个自定义starter）
     //   compile fileTree(dir: 'starter/build/libs', includes: ['*.jar'])
     // 2. 直接依赖本项目的其他模块
-    //   compile project(':modules:spring:boot:starter')
+    implementation project(':modules:spring:boot:starter')
     // 3. root/build.gradle中设置project的依赖
     //////////////////////////////////////////////////////////////
 

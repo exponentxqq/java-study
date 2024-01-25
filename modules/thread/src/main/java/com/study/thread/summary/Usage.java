@@ -142,7 +142,10 @@ public class Usage {
             })
         .start();
     synchronized (result) {
-      result.wait(1000);
+      do {
+        result.wait(1000);
+        break;
+      } while (true);
     }
     return result.get();
   }
